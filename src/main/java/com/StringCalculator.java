@@ -2,22 +2,16 @@ package com;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
+
 public class StringCalculator {
 
     int add(String numbers){
-        return StringUtils.isBlank(numbers) ? 0 : getAddedNumbers(numbers);
+        return StringUtils.isBlank(numbers) ? 0 : IntStream.of(getNumbers(numbers)).sum();
     }
 
-    private int getAddedNumbers(String numbers) {
-        int value;
-        String[] split = numbers.split(",");
-        if (split.length > 1) {
-            value = Integer.valueOf(split[0]) + Integer.valueOf(split[1]);
-        } else {
-            value = Integer.valueOf(split[0]);
-        }
-        return value;
+    private int[] getNumbers(String numbers) {
+        return Stream.of(numbers.split(",")).mapToInt(Integer::parseInt).toArray();
     }
-
-
 }

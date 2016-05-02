@@ -40,4 +40,20 @@ public class StringCalculatorTest {
         assertThat(result, is(expected));
     }
 
+    @Test
+    public void testAdd_unknownNumbers1() throws Exception {
+        String numbers = "1,2,3,4,5";
+        int result = calculator.add(numbers);
+        int expected = 15;
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testAdd_unknownNumbers2() throws Exception {
+        String numbers = "3,6,7,2,1,2,3,4,5,10";
+        int result = calculator.add(numbers);
+        int expected = 43;
+        assertThat(result, is(expected));
+    }
+
 }
