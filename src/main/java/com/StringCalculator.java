@@ -13,9 +13,7 @@ import java.util.stream.Stream;
 
 public class StringCalculator {
 
-    int add(String numbers) {
-        return StringUtils.isBlank(numbers) ? 0 : IntStream.of(getNumbers(numbers)).sum();
-    }
+    int add(String numbers) { return StringUtils.isBlank(numbers) ? 0 : IntStream.of(getNumbers(numbers)).sum(); }
 
     private int[] getNumbers(String numbers) {
         List<String> allNumbers = new ArrayList<>();
