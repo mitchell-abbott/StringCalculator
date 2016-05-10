@@ -56,4 +56,59 @@ public class StringCalculatorTest {
         assertThat(result, is(expected));
     }
 
+    @Test
+    public void testAdd_newLineWithNumber() throws Exception {
+        String numbers = "1\n2,3";
+        int result = calculator.add(numbers);
+        int expected = 6;
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testAdd_newLineWithAnyDelimiter() throws Exception {
+        String numbers = "//;\n1;2";
+        int result = calculator.add(numbers);
+        int expected = 3;
+        assertThat(result, is(expected));
+    }
+
+    @Test(expected = UnsupportedOperationException.class)
+    public void testAdd_negativeNumberNotAllowed() throws Exception {
+        String numbers = "3,6,7,-2,1,2,3,4,5,10";
+        calculator.add(numbers);
+    }
+
+    @Test
+    public void testAdd_numbersGreaterThan1000Ignored() throws Exception {
+        String numbers = "3,6,7,2,1,2,3,4,5,1001";
+        int result = calculator.add(numbers);
+        int expected = 33;
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testAdd_delimiterWithAnyLengthAndFormat() throws Exception {
+        String numbers = "//[***]\n1***2***3";
+        int result = calculator.add(numbers);
+        int expected = 6;
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testAdd_multipleDelimitersWithAnyFormat() throws Exception {
+        String numbers = "//[*][%]\n1*2%3";
+        int result = calculator.add(numbers);
+        int expected = 6;
+        assertThat(result, is(expected));
+    }
+
+    @Test
+    public void testAdd_multipleDelimitersWithAnyLengthAndFormat() throws Exception {
+        String numbers = "//[*!?][%#$]\n1*!?2%#$3";
+        int result = calculator.add(numbers);
+        int expected = 6;
+        assertThat(result, is(expected));
+    }
+
+
 }
