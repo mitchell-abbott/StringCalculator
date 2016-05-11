@@ -94,6 +94,14 @@ public class StringCalculatorTest {
     }
 
     @Test
+    public void testAdd_numbersEqualTo1000NotIgnored() {
+        String numbers = "3,6,7,2,1,2,3,4,5,1000";
+        int result = calculator.add(numbers);
+        int expected = 1033;
+        assertThat(result, is(expected));
+    }
+
+    @Test
     public void testAdd_numbersGreaterThan1000Ignored() {
         String numbers = "3,6,7,2,1,2,3,4,5,1001";
         int result = calculator.add(numbers);
