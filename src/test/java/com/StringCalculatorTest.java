@@ -1,6 +1,8 @@
 package com;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -8,6 +10,9 @@ import static org.hamcrest.Matchers.is;
 public class StringCalculatorTest {
 
     StringCalculator calculator = new StringCalculator();
+
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void testAdd_nullNumbers() {
@@ -72,9 +77,19 @@ public class StringCalculatorTest {
         assertThat(result, is(expected));
     }
 
-    @Test(expected = UnsupportedOperationException.class)
+    @Test
     public void testAdd_negativeNumberNotAllowed() {
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("Negative numbers not allowed");
         String numbers = "3,6,7,-2,1,2,3,4,5,10";
+        calculator.add(numbers);
+    }
+
+    @Test
+    public void testAdd_negativeNumberNotAllowed_multipleNegatives() {
+        expectedException.expect(UnsupportedOperationException.class);
+        expectedException.expectMessage("Negative numbers not allowed: -4, -2, -1");
+        String numbers = "3,6,7,-2,-1,2,3,-4,5,10";
         calculator.add(numbers);
     }
 
